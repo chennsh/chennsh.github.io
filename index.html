@@ -9,7 +9,7 @@
   <meta name="author" content="chennsh">
 
   
-  <meta name="description" content="测试 测试测试
+  <meta name="description" content="
 ">
   
 
@@ -72,7 +72,36 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2017/01/19/test/">Test</a></h1>
+      <h1 class="entry-title"><a href="/blog/2017/01/19/test1/">Test1</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2017-01-19T16:48:14+08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>19</span><span class='date-suffix'>th</span>, <span class='date-year'>2017</span></span> <span class='time'>4:48 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2017/01/19/octopress%20github%20blog/">Octopress Github Blog</a></h1>
     
     
       <p class="meta">
@@ -88,9 +117,142 @@
   </header>
 
 
-  <div class="entry-content"><h1>测试</h1>
+  <div class="entry-content"><p>[TOC]</p>
 
-<p>测试测试</p>
+<h1>mac利用Octopress搭建一个Github博客</h1>
+
+<h2>安装Octopress</h2>
+
+<p>在安装Octopress前，默认电脑中安装了ruby、git等环境。</p>
+
+<h3>下载Octopress</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ git clone git://github.com/imathis/octopress.git octopress
+</span><span class='line'>$ cd octopress</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>安装依赖</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ gem install bundler
+</span><span class='line'>$ bundle install</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>安装</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ rake install</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>配置Octopress</h2>
+
+<p>主要修改文件：_config.yml。</p>
+
+<p>这个配置文件都有相应的注释。主要就是改一些博客头，作者名之类的东西。</p>
+
+<p>注意最好把里面的 twitter 相关的信息全部删掉，否则由于 GFW 的原因，将会造成页面 load 很慢。修改定制文件 /source/_includes/custom/head.html 把 google 的自定义字体去掉，原因同上。</p>
+
+<p>参考：<a href="http://blog.devtang.com/2012/02/10/setup-blog-based-on-github/">唐巧的博客</a></p>
+
+<h2>将博客部署到github上</h2>
+
+<h3>建立github仓库</h3>
+
+<p>Github的<a href="https://pages.github.com/">Page service</a>可以免费托管博客，并且还可以自定义域名。
+建一个名为 username.github.io 的代码仓库。这里注意 username 必须是和你的账号名一致。访问地址为<a href="http://username.github.io">http://username.github.io</a></p>
+
+<h3>配置</h3>
+
+<p>利用octopress的一个配置rake任务来自动配置上面创建的仓库：可以让我们方便的部署GitHub page。在终端输入如下命令：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ rake setup_github_pages</span></code></pre></td></tr></table></div></figure>
+
+
+<p>上面的命令会做一些事情(详细介绍看下面给出的参考链接)。其中最主要的就是创建一个_deploy目录，目录用来存放部署到master分支的内容。期间会要求你输入仓库的url，根据提示，进行输入即可。
+参考：<a href="http://justcoding.iteye.com/blog/1954645">利用Octopress搭建一个Github博客</a></p>
+
+<h3>提交github</h3>
+
+<p>其中：
+_deploy目录提交到master上，上述脚本已自动提交，博客原码提交到source分支下，需手动提交。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ git add .
+</span><span class='line'>$ git commit -m 'Initial source commit'  
+</span><span class='line'>$ git push origin source  </span></code></pre></td></tr></table></div></figure>
+
+
+<h2>写博客</h2>
+
+<p>写博客主要是用以下几个命令，<a href="http://octopress.org/docs/blogging/">这里</a> 有详细介绍：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rake new_post[‘article name’] 生成博文框架，然后修改生成的文件即可
+</span><span class='line'>rake generate 生成静态文件
+</span><span class='line'>rake watch 检测文件变化，实时生成新内容
+</span><span class='line'>rake preview 在本机 4000 端口生成访问内容
+</span><span class='line'>rake deploy 发布文件</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Octopress为我们提供了一些task来创建博文和页面。博文必须存储在source/_posts目录下，并且需要按照Jekyll的命名规范对文章进行命名：YYYY-MM-DD-post-title.markdown。文章的名字会被当做url的一部分，而其中的日期用于对博文的区分和排序。</p>
+
+<p>通过Octopress提供的task可以正确的按照命名规范创建一个博文，并且在博文中会附带常用的一些yaml元数据。只需要在终端输入如下命令：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rake new_post["title"]  </span></code></pre></td></tr></table></div></figure>
+
+
+<p>其中title为博文的文件名，创建出来的文件默认是markdown格式。上面的命令会创建出这样一个文件：source/_posts/2013-08-03-title.markdown。打开这个文件，可以看到里面有如下一些内容了(告诉Jekyll博客引擎如何处理博文和页面)：</p>
+
+<h3>使用zsh执行命令注意地方</h3>
+
+<p>如果安装zsh，执行：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ rake new_post["title.markdown"]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>报错：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>zsh: no matches found: new_post[title.markdown]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>原因：zsh中若出现‘*’, ‘(’, ‘|’, ‘&lt;’, ‘[’, or ‘?’符号，则将其识别为查找文件名的通配符</p>
+
+<p>快速解决：用引号括起来<code>$ rake "new_post[arch-linux-reinstall-glibc.markdown]"</code></p>
+
+<p>彻底解决：取消zsh的通配(GLOB), 在.zshrc中加入alias rake=&ldquo;noglob rake&rdquo;</p>
+
+<blockquote><p>PS：在git回滚操作git reset &ndash;soft HEAD^时出现报错： zsh: no matches found HEAD^，也为同样原因，因为^也为正则中的符号， 需要转义为git reset &ndash;soft HEAD^</p></blockquote>
+
+<h3>发表博文的完整过程</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ rake new_post["New Post"]
+</span><span class='line'>$ rake generate
+</span><span class='line'>$ git add .
+</span><span class='line'>$ git commit -am "Some comment here." 
+</span><span class='line'>$ git push origin source
+</span><span class='line'>$ rake deploy</span></code></pre></td></tr></table></div></figure>
+
+
+<p>参考：<a href="http://octopress.org/docs/blogging/">Blogging</a></p>
 </div>
   
   
@@ -111,7 +273,11 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2017/01/19/test/">Test</a>
+        <a href="/blog/2017/01/19/test1/">Test1</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2017/01/19/octopress%20github%20blog/">Octopress Github Blog</a>
       </li>
     
   </ul>
